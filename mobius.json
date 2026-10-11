@@ -1,0 +1,103 @@
+{
+  "id": "hackathon-gallery",
+  "name": "Hackathon Station",
+  "version": "3.1.1",
+  "description": "An original space-opera art station with pilot flight, hangar gallery, games, ceremony, a live procedural score and participant sign-in.",
+  "entry": "index.jsx",
+  "icon": "icon.png",
+  "offline_capable": false,
+  "display": "fullscreen",
+  "theme_color": "#06111d",
+  "background_color": "#02050d",
+  "permissions": {},
+  "capabilities": {
+    "device.storage": {
+      "version": 1,
+      "reason": "Remember this visitor’s pilot, intro, experience and progress.",
+      "limits": {
+        "max_bytes": 16384
+      }
+    }
+  },
+  "service": {
+    "id": "hackathon-gallery",
+    "entry": "service.py",
+    "access": "public"
+  },
+  "source_files": [
+    "src/art.js",
+    "src/engine.js",
+    "src/main.js",
+    "src/pilot.js",
+    "src/player.js",
+    "src/rooms.js",
+    "src/space.js",
+    "src/ui.js",
+    "src/weapons.js",
+    "src/station.css",
+    "station-css.js",
+    "station-integration.js",
+    "station-score.js",
+    "station-presence.js",
+    "station-participant.jsx",
+    "station-participant.js",
+    "station-service.js",
+    "station-image-loader.js",
+    "station-tools.jsx",
+    "station-tools-style.js",
+    "station-cinematic-style.js",
+    "station-world-details.js",
+    "hackathon-station-maintenance.md",
+    "Admin.jsx",
+    "admin-style.js",
+    "seed.json",
+    "service.py",
+    "test_service.py",
+    "test_station_integration.mjs",
+    "INTEGRATION.md"
+  ],
+  "skills": [
+    "hackathon-station-maintenance.md"
+  ],
+  "static_assets": {
+    "CREDITS.txt": "assets/CREDITS.txt",
+    "bridge.glb": "assets/bridge.glb",
+    "bridge_meta.json": "assets/bridge_meta.json",
+    "ceremony.glb": "assets/ceremony.glb",
+    "ceremony_meta.json": "assets/ceremony_meta.json",
+    "flight.glb": "assets/flight.glb",
+    "gallery.glb": "assets/gallery.glb",
+    "gallery_meta.json": "assets/gallery_meta.json",
+    "hangar.glb": "assets/hangar.glb",
+    "hangar_meta.json": "assets/hangar_meta.json",
+    "pilot_0.glb": "assets/pilot_0.glb",
+    "pilot_1.glb": "assets/pilot_1.glb",
+    "pilot_2.glb": "assets/pilot_2.glb"
+  },
+  "store": {
+    "tagline": "An original space-opera hackathon station: fly, explore the art gallery, and watch the ceremony.",
+    "description": "Hackathon Station is a playable 3D exhibition for phone and desktop.\n\nCreate a pilot, walk the departure hangar, board your fighter, jump through hyperspace and fly a short asteroid run, then dock at the Grand Gallery. Walk the hall of artworks and memes, ride the lift to the Command Bridge and watch the closing ceremony reveal the winners.\n\nWhat is inside\n- A cinematic intro, pilot creator, XP, ranks and objectives\n- An original cinematic score synthesised on your device, with a volume control\n- A gallery of curated art and memes, with info cards for what you look at\n- Participant sign-in: the organiser issues codes; only signed-in participants submit work or post official scores\n- Moderated submissions: every piece waits for the owner's approval before it appears\n- A Top Pilots leaderboard\n- Optional shared room: opt in to see other visitors' pilots and callsigns in the same room (updates about every 8 seconds, not real-time multiplayer)\n- A curator studio for the owner to arrange art, winners and the ceremony\n\nEverything is original or bundled: no external services at runtime, no ads, no tracking. The station is by Armin Zimić; see the in-app About for credits.",
+    "screenshots": [
+      {
+        "src": "static/store/hangar.png",
+        "alt": "A pilot stands in the departure hangar facing a fighter and a planet through the open bay.",
+        "label": "Departure hangar"
+      },
+      {
+        "src": "static/store/flight.png",
+        "alt": "A fighter flies through an asteroid field towards a ring-shaped space station and a planet.",
+        "label": "Asteroid flight"
+      },
+      {
+        "src": "static/store/gallery.png",
+        "alt": "The Grand Gallery: a vaulted hall with framed artworks and statues along both walls.",
+        "label": "Grand Gallery"
+      },
+      {
+        "src": "static/store/phone-hangar.png",
+        "alt": "The departure hangar on a phone, with the pilot card and Station Tools button.",
+        "label": "On a phone"
+      }
+    ]
+  }
+}
