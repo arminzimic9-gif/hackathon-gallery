@@ -1,0 +1,11 @@
+[
+  {"id": "sample-01", "title": "THE PROMPT HAS LEFT THE CHAT", "author": "Gallery sample", "caption": "Sample art · Replace this with a hackathon submission.", "placeholder": true, "ratio": 0.78, "palette": 0, "room": "memes"},
+  {"id": "sample-02", "title": "BUILD / BREAK / BECOME", "author": "Gallery sample", "caption": "Sample art · Replace this with a hackathon submission.", "placeholder": true, "ratio": 1.28, "palette": 1, "room": "art"},
+  {"id": "sample-03", "title": "AGENTS AFTER DARK", "author": "Gallery sample", "caption": "Sample art · Replace this with a hackathon submission.", "placeholder": true, "ratio": 0.83, "palette": 2, "room": "agents"},
+  {"id": "sample-04", "title": "ONE MORE TOOL CALL", "author": "Gallery sample", "caption": "Sample meme · Replace this with a hackathon submission.", "placeholder": true, "ratio": 1.25, "palette": 3, "room": "memes"},
+  {"id": "sample-05", "title": "MÖBIUS LOOP", "author": "Gallery sample", "caption": "Sample art · Replace this with a hackathon submission.", "placeholder": true, "ratio": 0.82, "palette": 4, "room": "art"},
+  {"id": "sample-06", "title": "IT WORKED ON MY INSTANCE", "author": "Gallery sample", "caption": "Sample meme · Replace this with a hackathon submission.", "placeholder": true, "ratio": 1.3, "palette": 5, "room": "memes"},
+  {"id": "sample-07", "title": "SHARED WORLDS", "author": "Gallery sample", "caption": "Sample art · Replace this with a hackathon submission.", "placeholder": true, "ratio": 1.18, "palette": 6, "room": "apps"},
+  {"id": "sample-08", "title": "404: HUMAN NOT FOUND", "author": "Gallery sample", "caption": "Sample meme · Replace this with a hackathon submission.", "placeholder": true, "ratio": 0.84, "palette": 7, "room": "agents"},
+  {"id": "sample-09", "title": "THE FUTURE IS CO-CREATED", "author": "Gallery sample", "caption": "Sample art · Replace this with a hackathon submission.", "placeholder": true, "ratio": 1.26, "palette": 8, "room": "apps"}
+]
