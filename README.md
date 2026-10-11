@@ -25,9 +25,13 @@ The owner-supplied `src/*.js`, `src/station.css` and `assets/*` are preserved by
 - **Shared room** is an optional, near-live view of other visitors' pilot models and callsigns in the same walkable room. It is off by default; choosing *See other pilots* shares the current callsign and position while the visit is active. The public service holds only short-lived room positions (30-second expiry), returns at most ten nearest peers, and never treats a callsign as a verified participant or posts an official score. Updates arrive about every eight seconds, so this is presence, not real-time racing or combat. It uses the existing service and its public rate limit; a large crowd on one network may need a dedicated real-time transport later. The supplied ZIP stays unchanged.
 - The supplied station has no live collection-update API. Curator changes are saved immediately; closing the studio restarts the visit to apply them, preserving saved pilot/XP/best. This also clears the supplied module's image caches. The studio warns before that reload.
 
+## Official trailer
+
+`assets/trailer.mp4` (about 64 s, 1280x720, H.264/AAC, English subtitles burned in) is declared under `static_assets` and credited in `assets/CREDITS.txt`, the in-app About and the Store description: *By Via Creativa Studio for Möbius*; music by Gregor Quendel, CC BY 4.0. A **Watch trailer** button sits on the intro screen and in Station Tools. It opens a full-screen player (`station-trailer.jsx`) with the browser's controls; Esc or CLOSE returns to where you were. The video element is created only on click, so nothing is downloaded and the 3D load is never delayed. The trailer starts muted when MUSIC is OFF in Station Tools and otherwise starts at the slider volume; the live score is silenced while it plays and resumes afterwards.
+
 ## Store readiness
 
-- Listing: tagline, description, icon (`icon.png`) and four screenshots (3 desktop, 1 phone) are declared in `mobius.json` under `store`, with files in `static/store/`.
+- Listing: tagline, description, icon (`icon.png`) and five screenshots (4 desktop, 1 phone, including the trailer player) are declared in `mobius.json` under `store`, with files in `static/store/`.
 - Screenshots were captured from the published station with a neutral pilot callsign; none shows participant data.
 - Checks before a release: `python3 -m pytest -q test_service.py`, `node --test test_station_integration.mjs`, and `python3 "$SCRIPTS_DIR/validate-app.py" .` (0 errors, 0 warnings).
 - The package carries no database, keys, participant codes or submitted works; the 9 bundled gallery pieces are marked samples. The organiser issues participant codes in the Curate studio after install.

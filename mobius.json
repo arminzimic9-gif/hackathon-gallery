@@ -1,7 +1,7 @@
 {
   "id": "hackathon-gallery",
   "name": "Hackathon Station",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "An original space-opera art station with pilot flight, hangar gallery, games, ceremony, a live procedural score and participant sign-in.",
   "entry": "index.jsx",
   "icon": "icon.png",
@@ -44,6 +44,7 @@
     "station-service.js",
     "station-image-loader.js",
     "station-tools.jsx",
+    "station-trailer.jsx",
     "station-tools-style.js",
     "station-cinematic-style.js",
     "station-world-details.js",
@@ -72,11 +73,12 @@
     "hangar_meta.json": "assets/hangar_meta.json",
     "pilot_0.glb": "assets/pilot_0.glb",
     "pilot_1.glb": "assets/pilot_1.glb",
-    "pilot_2.glb": "assets/pilot_2.glb"
+    "pilot_2.glb": "assets/pilot_2.glb",
+    "trailer.mp4": "assets/trailer.mp4"
   },
   "store": {
     "tagline": "An original space-opera hackathon station: fly, explore the art gallery, and watch the ceremony.",
-    "description": "Hackathon Station is a playable 3D exhibition for phone and desktop.\n\nCreate a pilot, walk the departure hangar, board your fighter, jump through hyperspace and fly a short asteroid run, then dock at the Grand Gallery. Walk the hall of artworks and memes, ride the lift to the Command Bridge and watch the closing ceremony reveal the winners.\n\nWhat is inside\n- A cinematic intro, pilot creator, XP, ranks and objectives\n- An original cinematic score synthesised on your device, with a volume control\n- A gallery of curated art and memes, with info cards for what you look at\n- Participant sign-in: the organiser issues codes; only signed-in participants submit work or post official scores\n- Moderated submissions: every piece waits for the owner's approval before it appears\n- A Top Pilots leaderboard\n- Optional shared room: opt in to see other visitors' pilots and callsigns in the same room (updates about every 8 seconds, not real-time multiplayer)\n- A curator studio for the owner to arrange art, winners and the ceremony\n\nEverything is original or bundled: no external services at runtime, no ads, no tracking. The station is by Armin Zimić; see the in-app About for credits.",
+    "description": "Hackathon Station is a playable 3D exhibition for phone and desktop.\n\nCreate a pilot, walk the departure hangar, board your fighter, jump through hyperspace and fly a short asteroid run, then dock at the Grand Gallery. Walk the hall of artworks and memes, ride the lift to the Command Bridge and watch the closing ceremony reveal the winners.\n\nThere is an official trailer on the start screen and in Station Tools (Watch trailer): about a minute, full screen, with controls and English subtitles. It follows the music on/off and volume setting and only downloads when you press play. By Via Creativa Studio for Möbius; trailer music by Gregor Quendel, CC BY 4.0.\n\nWhat is inside\n- A cinematic intro, pilot creator, XP, ranks and objectives\n- An original cinematic score synthesised on your device, with a volume control\n- A gallery of curated art and memes, with info cards for what you look at\n- Participant sign-in: the organiser issues codes; only signed-in participants submit work or post official scores\n- Moderated submissions: every piece waits for the owner's approval before it appears\n- A Top Pilots leaderboard\n- Optional shared room: opt in to see other visitors' pilots and callsigns in the same room (updates about every 8 seconds, not real-time multiplayer)\n- A curator studio for the owner to arrange art, winners and the ceremony\n\nEverything is original or bundled: no external services at runtime, no ads, no tracking. The station is by Armin Zimić; see the in-app About for credits.",
     "screenshots": [
       {
         "src": "static/store/hangar.png",
@@ -97,6 +99,11 @@
         "src": "static/store/phone-hangar.png",
         "alt": "The departure hangar on a phone, with the pilot card and Station Tools button.",
         "label": "On a phone"
+      },
+      {
+        "src": "static/store/trailer.png",
+        "alt": "The full-screen trailer player showing a fighter leaving the ring station, with playback controls and the trailer credit below.",
+        "label": "Official trailer"
       }
     ]
   }

@@ -104,6 +104,7 @@ export function createScore({ storage = null, onError = () => {}, seed = 2026101
   const settings = readAudioSettings(storage?.getItem?.('hs.audio'));
   const rng = mulberry32(seed >>> 0);
   let ctx = null, master = null, music = null, send = null, verb = null;
+  let ducked = false;
   let padFilter = null, padGain = null, pad = [], padLfo = null;
   let bassOsc = null, bassGain = null;
   let noiseSrc = null, noiseFilter = null, noiseGain = null;
@@ -121,7 +122,7 @@ export function createScore({ storage = null, onError = () => {}, seed = 2026101
     if (!ctx) {
       try { ctx = new Ctor(); } catch (error) { onError(error); return null; }
       master = ctx.createGain();
-      master.gain.value = settings.muted ? 0 : settings.volume * CEILING;
+      master.gain.value = settings.muted || ducked ? 0 : settings.volume * CEILING;
       const limiter = ctx.createDynamicsCompressor();
       limiter.threshold.value = -16; limiter.knee.value = 14; limiter.ratio.value = 8;
       limiter.attack.value = 0.006; limiter.release.value = 0.25;
@@ -292,7 +293,7 @@ export function createScore({ storage = null, onError = () => {}, seed = 2026101
   function setVolume(value) {
     settings.volume = Math.min(1, Math.max(0, Number(value) || 0));
     persist();
-    if (ctx && !settings.muted) master.gain.setTargetAtTime(settings.volume * CEILING, ctx.currentTime, 0.05);
+    if (ctx && !settings.muted && !ducked) master.gain.setTargetAtTime(settings.volume * CEILING, ctx.currentTime, 0.05);
   }
 
   function setMuted(muted) {
@@ -304,9 +305,16 @@ export function createScore({ storage = null, onError = () => {}, seed = 2026101
       return false;
     }
     if (!started) { arm(); return false; }
-    master.gain.setTargetAtTime(settings.volume * CEILING, ctx.currentTime, 0.08);
+    if (!ducked) master.gain.setTargetAtTime(settings.volume * CEILING, ctx.currentTime, 0.08);
     nextTime = Math.max(nextTime, ctx.currentTime + 0.05);
     return start();
+  }
+
+  /** Silence the score without touching the saved setting (e.g. while a video plays). */
+  function duck(on) {
+    ducked = !!on;
+    if (!ctx) return;
+    master.gain.setTargetAtTime(ducked || settings.muted ? 0 : settings.volume * CEILING, ctx.currentTime, 0.12);
   }
 
   function dispose() {
@@ -329,7 +337,7 @@ export function createScore({ storage = null, onError = () => {}, seed = 2026101
   arm();
 
   return {
-    start, arm, setMood, setVolume, dispose,
+    start, arm, setMood, setVolume, duck, dispose,
     get mood() { return mood; },
     get volume() { return settings.volume; },
     get muted() { return settings.muted; },

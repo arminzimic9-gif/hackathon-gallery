@@ -16,6 +16,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { TextureLoader } from 'three';
 import { installStationImageLoader } from './station-image-loader.js';
 import { installStationPresence, PRESENCE_CSS } from './station-presence.js';
+import { TrailerPlayer, TRAILER_CSS, TRAILER_FILE, installTrailerButton } from './station-trailer.jsx';
 
 function About({ onClose }) {
   return <div className="st-modal-back" role="dialog" aria-modal="true" aria-label="About Hackathon Station"><div className="st-modal">
@@ -26,6 +27,7 @@ function About({ onClose }) {
     <p>three.js code: written with AI assistance (<b>Claude Code</b>).</p>
     <p>Möbius integration: <b>ChatGPT Astra</b> (credited as <b>GPT-6-Astra</b>).</p>
     <p>Soundtrack: an original score synthesised live for this station.</p>
+    <p>Official trailer: <b>Via Creativa Studio</b> for Möbius. Trailer music: <b>Gregor Quendel</b>, CC BY 4.0.</p>
     <p>Pilot characters: “Ultimate Space Kit” by <b>Quaternius</b>, CC0 1.0. Library: three.js (MIT).</p>
   </div></div>;
 }
@@ -38,6 +40,7 @@ export default function App({ appId, token }) {
   const [overlay, setOverlay] = useState(null), [changed, setChanged] = useState(false);
   const [participant, setParticipant] = useState(null), [canCurate, setCanCurate] = useState(false);
   const [music, setMusic] = useState({ on: true, volume: 0.6 }), [run, setRun] = useState(null);
+  const [trailer, setTrailer] = useState(false);
   const [presence, setPresence] = useState({ enabled: false, phase: 'off', room: null, online: 0 });
   const report = (e, source) => {
     setNotice(e.message);
@@ -45,7 +48,7 @@ export default function App({ appId, token }) {
   };
 
   useEffect(() => {
-    let disposed = false, handle, details, follow, musicHook, presenceHook;
+    let disposed = false, handle, details, follow, musicHook, presenceHook, trailerHook;
     const releaseImageLoader = installStationImageLoader(GLTFLoader, TextureLoader);
     window.parent.postMessage({ type: 'moebius:immersive', value: true, appId }, '*');
     async function start() {
@@ -86,6 +89,7 @@ export default function App({ appId, token }) {
         storage: adapter, onState: next => { if (!disposed) setPresence(next); },
       });
       sharedRoom.current = presenceHook;
+      trailerHook = installTrailerButton(root.current, openTrailer);
       station.current = handle; setReady(true); setCanCurate(api.canCurate);
       window.mobius?.signal('app_ready', { item_count: collection.art.length });
       // A saved sign-in is re-checked, so a withdrawn code returns to guest.
@@ -99,7 +103,7 @@ export default function App({ appId, token }) {
     start().catch(e => { if (!disposed) { setError(e.message); window.mobius?.signal('error', { message: e.message, source: 'station-start' }); } });
     return () => {
       disposed = true; station.current = null; sharedRoom.current = null;
-      presenceHook?.dispose(); musicHook?.dispose(); details?.dispose(); track.current?.dispose(); track.current = null;
+      presenceHook?.dispose(); trailerHook?.dispose(); musicHook?.dispose(); details?.dispose(); track.current?.dispose(); track.current = null;
       handle?.dispose(); releaseImageLoader();
       window.parent.postMessage({ type: 'moebius:immersive', value: false, appId }, '*');
     };
@@ -119,6 +123,18 @@ export default function App({ appId, token }) {
       if (kind === 'admin') setGallery(await requestGallery(appId, token, 'state'));
       if (kind === 'leaders') setScores((await visitor.current.scores()).scores);
     } catch (e) { report(e, 'station-tools'); }
+  }
+  function openTrailer() {
+    if (tools.current) tools.current.open = false;
+    station.current?.player.setEnabled(false);
+    // Read the setting at the moment of opening: the trailer follows MUSIC ON/OFF and the slider.
+    const score = track.current;
+    if (score) setMusic({ on: !score.muted, volume: score.volume });
+    setTrailer(true);
+  }
+  function closeTrailer() {
+    setTrailer(false);
+    station.current?.player.setEnabled(!!root.current.querySelector('.st-hud'));
   }
   async function closeOverlay() {
     if (changed) {
@@ -163,7 +179,7 @@ export default function App({ appId, token }) {
 
   return <>
     <style>{STATION_CSS}</style><style>{CINEMATIC_CSS}</style><style>{TOOLS_CSS}</style>
-    <style>{WORLD_DETAILS_CSS}</style><style>{PARTICIPANT_CSS}</style><style>{PRESENCE_CSS}</style>
+    <style>{WORLD_DETAILS_CSS}</style><style>{PARTICIPANT_CSS}</style><style>{PRESENCE_CSS}</style><style>{TRAILER_CSS}</style>
     <div id="station-root" ref={root}/>
     {!ready && <div className="hs-status" role={error ? 'alert' : 'status'}>
       <b>HACKATHON STATION</b><span>{error || 'Preparing the station…'}</span>
@@ -176,6 +192,7 @@ export default function App({ appId, token }) {
           <input type="range" min="0" max="100" step="5" value={Math.round(music.volume * 100)}
             aria-label="Music volume" onChange={e => changeVolume(Number(e.target.value))}/>
         </div>
+        <button className="hs-trailer-tool" onClick={openTrailer}>► WATCH TRAILER</button>
         <button aria-pressed={presence.enabled} onClick={togglePresence}>
           {presence.enabled ? 'LEAVE SHARED ROOM' : 'SEE OTHER PILOTS'}
         </button>
@@ -207,6 +224,8 @@ export default function App({ appId, token }) {
       {overlay === 'submit' && <SubmitPanel participant={participant} onSubmitted={work => submitWork(participant, work)} onClose={closeOverlay} onNeedSignIn={() => setOverlay('signin')}/>}
       {changed && <div className="hs-refresh">Saved. Closing the studio restarts the visit to load the updated collection and winners. Your pilot and XP stay saved.</div>}
     </div>}
+    {trailer && <TrailerPlayer src={`/app-assets/by-id/${appId}/${TRAILER_FILE}`} music={music}
+      onClose={closeTrailer} onDuck={on => track.current?.duck(on)}/>}
     {notice && <div className="hs-notice" role="alert">{notice}<button onClick={() => setNotice('')}>DISMISS</button></div>}
   </>;
 }

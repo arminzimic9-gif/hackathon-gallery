@@ -1,2 +1,3 @@
 Pilot characters (pilot_0..2.glb): "Ultimate Space Kit" by Quaternius (quaternius.com), CC0 1.0 public domain.
 Source: https://opengameart.org/content/ultimate-space-kit-by-quaternius
+Official trailer (trailer.mp4): "Hackathon Station" trailer by Via Creativa Studio for Möbius, with English subtitles. Music by Gregor Quendel, licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
